@@ -1,16 +1,20 @@
 
 # s3 
 resource "aws_s3_bucket" "state_bucket" {
-  bucket = "kojitech.terraform.101.state.gfdhe" # create variable, 
+  count = length(var.bucket_name)
+
+  bucket = var.bucket_name[count.index]# create variable, 
 }
 
 resource "aws_s3_bucket_acl" "state_bucket_acl" {
-  bucket = aws_s3_bucket.state_bucket.id
+  count = length(var.bucket_name)
+  bucket = aws_s3_bucket.state_bucket[count.index].id
   acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "state_bucket_versioning" {
-  bucket = aws_s3_bucket.state_bucket.id
+  count = length(var.bucket_name)
+  bucket = aws_s3_bucket.state_bucket[count.index].id
   versioning_configuration {
     status = "Enabled"
   }

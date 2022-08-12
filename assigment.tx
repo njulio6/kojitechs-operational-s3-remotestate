@@ -1,0 +1,5 @@
+
+Using count or for_each: dynamically create s3 state buckets in main.tf line 4
+all buckets name should be in a seperate file(varible or terraform.tfvars)
+after using for_each or count to create s3 buckets. create a state bucket for this project and create a backend file \
+migrate the state file(terraform init) to s3
